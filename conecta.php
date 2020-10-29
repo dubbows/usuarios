@@ -1,14 +1,41 @@
 <?php
 	// conexão com o banco de dados
-
-	$banco = "flex";
+	//Nome do Banco de Dados
+	$banco = "";
+	// Usuario do Banco 
 	$usuario = "";
+	// Senha do Banco
 	$senha = "";
+	// Servidor do Bacno
 	$hostname = "localhost";
-	$conn = mysql_connect($hostname,$usuario,$senha); mysql_select_db($banco) or die ("Não foi possível conectar ao banco mysql");
-		if (!$conn) {echo "Não foi possivel conectar ao banco mysql"; exit;}
-		else {echo "parabéns! A conexão ao banco de dados ocorreu normalmente!";}
+    
+    // Conexao (Servidor, usuario, senha, banco)
+    $conn = mysqli_connect($hostname,$usuario,$senha, $banco); 
+       
+      
+    //Verifica se a conexao existe
+    if (!$conn) {
+        // Exibe erro se n"ao existir
+        echo "Não foi possivel conectar ao banco mysql"; 
+    }
+    else 
+    {
+        //Se Existir exibe a mensagem
+        echo "parabéns! A conexão ao banco de dados ocorreu normalmente!";
+        echo '<br>';
 
+
+        // Executa a pesquisa na tabela
+        $query = $conn->query('SELECT * FROM usuarios');
+        // retorna consulta em objeto
+        $obj = $query->fetch_object();
+        
+        // escreve o valor do objeto $obj->NOME-DO-CAMPO-TABELA
+        echo $obj->USUARIO;
+    }
+
+    //Fecha a conexao
 	mysql_close();
 
 ?>
+
